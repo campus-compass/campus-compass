@@ -34,6 +34,7 @@ module.exports = {
     // 'no-unused-vars': ['error', { vars: 'all', "varsIgnorePattern": "\w*token", args: 'after-used', ignoreRestSiblings: false }],
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
     'react/no-unescaped-entities': 'off',
-    '@typescript-eslint/no-explicit-any': 'off'
+    '@typescript-eslint/no-explicit-any': 'off',
+    "no-unused-vars": "off"
   }
 }

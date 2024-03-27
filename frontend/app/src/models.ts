@@ -28,3 +28,17 @@ export interface SurveyResponse {
   question_id: string
   answer_id: string
 }
+
+export interface CreateQuestionProps {
+  question: string
+}
+
+export interface ICreateQuestion {
+  question_text: string
+  answers: ICreateAnswer[]
+}
+
+export interface ICreateAnswer {
+  answer_text: string
+  recommend_service: boolean
+}

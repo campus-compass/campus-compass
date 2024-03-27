@@ -4,6 +4,7 @@ import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Recommendations from '../pages/Recommendations'
+import CreateSurvey from '../pages/CreateSurvey'
 import { useAuth } from '../auth/authProvider'
 import { ProtectedRoute } from './ProtectedRoute'
 import { IAuthContext } from '../auth/authProvider'
@@ -42,6 +43,18 @@ const routesForAuthenticatedOnly = [
             element: <Register />
           }
         ]
+      },
+      {
+        path: 'service/',
+        allowedRoles: ['service'],
+        element: <Outlet />,
+        children: [
+          {
+            path: 'createsurvey/',
+            name: 'Create Survey',
+            element: <CreateSurvey />
+          }
+        ]
       }
     ]
   }
@@ -55,7 +68,7 @@ const routesForNotAuthenticatedOnly = [
   }
 ]
 
-const navbarRouteNames = ['Home', 'Register Users', 'Login']
+const navbarRouteNames = ['Home', 'Register Users', 'Login', 'Create Survey']
 
 export interface IRoutesContext {
   getCurrentRouteName: (currentPath: string) => string
@@ -77,10 +90,13 @@ const Routes = () => {
 
   function getCurrentRouteName_(routes: any, currentPath: string, recursivePath: string): string {
     for (const route of routes) {
+      console.log(recursivePath + route.path)
+      console.log(currentPath)
       if ('name' in route && recursivePath + route.path === currentPath) {
         return route.name
       } else if ('children' in route) {
-        return getCurrentRouteName_(route['children'], currentPath, recursivePath + route.path)
+        const routeName = getCurrentRouteName_(route['children'], currentPath, recursivePath + route.path)
+        if (routeName !== '') return routeName
       }
     }
     return ''
